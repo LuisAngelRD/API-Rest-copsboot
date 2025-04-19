@@ -1,6 +1,6 @@
 package com.example.copsboot.user;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
 import java.util.UUID;
@@ -8,23 +8,40 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 
-@DataJpaTest // <.>
+import com.example.orm.jpa.InMemoryUniqueIdGenerator;
+import com.example.orm.jpa.UniqueIdGenerator;
+
+@DataJpaTest
 public class UserRepositoryTest {
 
     @Autowired
-    private UserRepository repository; // <.>
+    private UserRepository repository;
 
+    //tag::testStoreUser[]
     @Test
-    public void testStoreUser() { // <.>
+    public void testStoreUser() {
         HashSet<UserRole> roles = new HashSet<>();
         roles.add(UserRole.OFFICER);
-        User user = repository.save(new User(UUID.randomUUID(), // <.>
+        User user = repository.save(new User(repository.nextId(),
                                             "alex.foley@beverly-hills.com",
                                             "my-secret-pwd",
                                             roles));
-        assertThat(user).isNotNull(); // <.>
+        assertThat(user).isNotNull();
 
-        assertThat(repository.count()).isEqualTo(1L); // <.>
+        assertThat(repository.count()).isEqualTo(1L);
     }
+    //end::testStoreUser[]
+
+    //tag::testconfig[]
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        public UniqueIdGenerator<UUID> generator() {
+            return new InMemoryUniqueIdGenerator();
+        }
+    }
+    //end::testconfig[]
 }

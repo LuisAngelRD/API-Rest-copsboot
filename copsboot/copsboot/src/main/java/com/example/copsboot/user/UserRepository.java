@@ -1,8 +1,7 @@
 package com.example.copsboot.user;
 
-import java.util.UUID;
-
 import org.springframework.data.repository.CrudRepository;
-
-public interface UserRepository extends CrudRepository<User, UUID> {
+//tag::class[]
+public interface UserRepository extends CrudRepository<User, UserId>, UserRepositoryCustom {
 }
+//end::class[]
