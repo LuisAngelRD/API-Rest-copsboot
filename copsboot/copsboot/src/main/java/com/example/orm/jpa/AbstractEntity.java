@@ -1,7 +1,7 @@
 package com.example.orm.jpa;
 
-import static com.google.common.base.MoreObjects.toStringHelper;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.MoreObjects.*;
+import static com.google.common.base.Preconditions.*;
 
 import java.util.Objects;
 

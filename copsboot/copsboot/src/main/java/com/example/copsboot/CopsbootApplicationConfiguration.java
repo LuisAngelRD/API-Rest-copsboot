@@ -11,8 +11,9 @@ import com.example.orm.jpa.UniqueIdGenerator;
 @Configuration
 public class CopsbootApplicationConfiguration {
 
-@Bean
-public UniqueIdGenerator<UUID> uniqueIdGenerator() {
-    return new InMemoryUniqueIdGenerator();
-}
+    @Bean
+    public UniqueIdGenerator<UUID> uniqueIdGenerator() {
+        return new InMemoryUniqueIdGenerator();
+    }
+
 }

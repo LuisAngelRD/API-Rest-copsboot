@@ -1,6 +1,7 @@
 package com.example.orm.jpa;
 
-import static com.google.common.base.MoreObjects.toStringHelper;
+import static com.google.common.base.MoreObjects.*;
+import static com.google.common.base.Preconditions.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public abstract class AbstractEntityId<T extends Serializable> implements Serial
     }
 
     protected AbstractEntityId(T id) {
-        this.id = Objects.requireNonNull(id);
+        this.id = checkNotNull(id);
     }
 
     @Override
